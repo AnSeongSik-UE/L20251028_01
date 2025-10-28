@@ -13,6 +13,8 @@
 #include "Goal.h"
 #include "GameMode.h"
 #include "Timer.h"
+#include "Input.h"
+
 //FEngine* GEngine = nullptr;
 
 FEngine* FEngine::Instance = nullptr;
@@ -22,16 +24,21 @@ FEngine::FEngine() : World(nullptr), MyEvent(SDL_Event())
 	MyWindow = nullptr;
 	MyRenderer = nullptr;
 	Timer = new UTimer();
+	InputDevice = new UInput();
 }
 FEngine::~FEngine()
 {
-	if (World)
+	if (InputDevice)
 	{
-		delete World;
+		delete InputDevice;
 	}
 	if (Timer)
 	{
 		delete Timer;
+	}
+	if (World)
+	{
+		delete World;
 	}
 }
 
@@ -64,35 +71,35 @@ void FEngine::OpenLevel()
 				{
 					AActor* NewActor = new AWall();
 					NewActor->SetActorLocation(FVector2D(X, Y));
-					NewActor->SetShape(Line[X]);
+					//NewActor->SetShape(Line[X]);
 					World->SpawnActor(NewActor);
 				}
 				else if (Line[X] == 'P')
 				{
 					AActor* NewActor = new APlayer();
 					NewActor->SetActorLocation(FVector2D(X, Y));
-					NewActor->SetShape(Line[X]);
+					//NewActor->SetShape(Line[X]);
 					World->SpawnActor(NewActor);
 				}
 				else if (Line[X] == 'M')
 				{
 					AActor* NewActor = new AMonster();
 					NewActor->SetActorLocation(FVector2D(X, Y));
-					NewActor->SetShape(Line[X]);
+					//NewActor->SetShape(Line[X]);
 					World->SpawnActor(NewActor);
 				}
 				else if (Line[X] == 'G')
 				{
 					AActor* NewActor = new AGoal();
 					NewActor->SetActorLocation(FVector2D(X, Y));
-					NewActor->SetShape(Line[X]);
+					//NewActor->SetShape(Line[X]);
 					World->SpawnActor(NewActor);
 				}
 
 				{
 					AActor* NewActor = new AFloor();
 					NewActor->SetActorLocation(FVector2D(X, Y));
-					NewActor->SetShape(' ');
+					//NewActor->SetShape(' ');
 					World->SpawnActor(NewActor);
 				}
 			}
@@ -120,8 +127,16 @@ void FEngine::Run()
 	{
 		Timer->Tick();
 
-		SDL_PollEvent(&MyEvent);
-		//Input();
+		if (SDL_PollEvent(&MyEvent))
+		{
+			switch (MyEvent.type)
+			{
+			case SDL_QUIT:
+				bIsRunning = false;
+				break;
+			}
+		}
+		Input();
 		Tick();
 		Render();
 	}
@@ -136,10 +151,11 @@ void FEngine::Term()
 }
 void FEngine::Input()
 {
-	if (_kbhit())
-	{
-		KeyCode = _getch();
-	}
+	InputDevice->Tick();
+	//if (_kbhit())
+	//{
+	//	KeyCode = _getch();
+	//}
 }
 void FEngine::Tick()
 {

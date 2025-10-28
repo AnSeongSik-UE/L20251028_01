@@ -2,9 +2,12 @@
 
 #include <iostream>
 #include <Windows.h>
+#include <vector>
 
 #include "Vector.h"
 #include "Engine.h"
+
+class UComponent;
 
 class AActor
 {
@@ -13,7 +16,6 @@ public:
 	virtual ~AActor();
 
 	virtual void Tick();
-	virtual void Render();
 
 	//inline은 해당 코드 자체를 불러와서 빠름
 	//inline은 컴파일러가 더 좋은 방안을 생각함
@@ -31,20 +33,6 @@ public:
 		Location.Y = Value.Y;
 	}
 
-	__forceinline char GetShape()
-	{
-		return Shape;
-	}
-
-	void SetShape(char Value)
-	{
-		Shape = Value;
-	}
-
-	__forceinline int GetZOrder() const
-	{
-		return ZOrder;
-	}
 
 	//virtual void SimulatePhysics();
 	bool CheckCollision(const AActor* Other);
@@ -52,14 +40,14 @@ public:
 	virtual void ActorBeginOverlap();
 	virtual void Hit();
 
+	void AddComponent(UComponent* InComponent);
+
 protected:
 	FVector2D Location;
-	char Shape;
-	int ZOrder;
+
+	std::vector<class UComponent*> Components;
 
 public:
 	bool bIsCollision = false;
 	bool bIsOverlap = true;
-
-	SDL_Color Color = { 255, 255, 255, 255 };
 };

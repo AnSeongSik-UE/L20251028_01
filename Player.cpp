@@ -3,13 +3,14 @@
 
 #include "Player.h"
 #include "World.h"
+#include "SDL3/SDL.h"
 
 APlayer::APlayer()
 {
-	ZOrder = 1003;
+	//ZOrder = 1003;
 	bIsCollision = true;
 	bIsOverlap = true;
-	Color = { 255,0,0,0 };
+	//Color = { 255,0,0,0 };
 }
 APlayer::~APlayer()
 {
@@ -21,21 +22,26 @@ void APlayer::Tick()
 	FVector2D SaveLocation;
 	SaveLocation = Location;
 
-	if (KeyCode == 'w')
+	if (KeyCode == SDLK_w || KeyCode == SDLK_UP)
 	{
 		Location.Y--;
 	}
-	else if(KeyCode == 's')
+	if(KeyCode == SDLK_s || KeyCode == SDLK_DOWN)
 	{
 		Location.Y++;
 	}
-	else if (KeyCode == 'a')
+	if (KeyCode == SDLK_a || KeyCode == SDLK_LEFT)
 	{
 		Location.X--;
 	}
-	else if (KeyCode == 'd')
+	if (KeyCode == SDLK_d || KeyCode == SDLK_RIGHT)
 	{
 		Location.X++;
+	}
+
+	if (KeyCode == SDLK_ESCAPE)
+	{
+		exit(-1);
 	}
 
 	std::vector<AActor*> AllActors;

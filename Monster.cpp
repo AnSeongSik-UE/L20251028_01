@@ -3,10 +3,10 @@
 
 AMonster::AMonster()
 {
-	ZOrder = 1001;
+	//ZOrder = 1001;
 	bIsCollision = true;
 	bIsOverlap = true;
-	Color = { 0,0,255,0 };
+	//Color = { 0,0,255,0 };
 }
 AMonster::~AMonster()
 {
@@ -14,6 +14,13 @@ AMonster::~AMonster()
 
 void AMonster::Tick()
 {
+	TotalTime += (float)GEngine->GetWorldDeltaSeconds();
+	if (TotalTime <= ExecuteTime)
+	{
+		return;
+	}
+	TotalTime = 0.f;
+
 	int KeyCode = rand() % 4;
 	FVector2D SaveLocation;
 	SaveLocation = Location;

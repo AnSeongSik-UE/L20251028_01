@@ -1,6 +1,6 @@
 #include "Actor.h"
 
-AActor::AActor() : ZOrder(0), Shape(' '), Location(0, 0)
+AActor::AActor() : Location(0, 0)
 {
 }
 AActor::~AActor()
@@ -10,29 +10,7 @@ AActor::~AActor()
 void AActor::Tick()
 {
 }
-void AActor::Render()
-{
-	COORD Position;
-	Position.X = Location.X;
-	Position.Y = Location.Y;
 
-	SetConsoleCursorPosition((HANDLE)GetStdHandle(STD_OUTPUT_HANDLE), Position);
-	std::cout << Shape;
-
-
-	SDL_SetRenderDrawColor(GEngine->MyRenderer, Color.r, Color.g, Color.b, Color.a);
-	float SizeX = 30.0f;
-	float SizeY = 30.0f;
-	SDL_FRect DrawRect =
-	{
-		Location.X * SizeX,
-		Location.Y * SizeY,
-		SizeX,
-		SizeY
-	};
-	SDL_RenderFillRect(GEngine->MyRenderer, &DrawRect);
-	//SDL_RenderDrawPoint(GEngine->MyRenderer, (float)Location.X, (float)Location.Y);
-}
 bool AActor::CheckCollision(const AActor* OtherActor)
 {
 	if (OtherActor->bIsOverlap)
@@ -51,4 +29,8 @@ void AActor::ActorBeginOverlap()
 }
 void AActor::Hit()
 {
+}
+void AActor::AddComponent(UComponent* InComponent)
+{
+	Components.push_back(InComponent);
 }

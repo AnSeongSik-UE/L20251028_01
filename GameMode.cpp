@@ -50,8 +50,5 @@ void AGameMode::Tick()
 			}
 		}
 	}
-	SDL_Log("DeltaSeconds : %f\n", GEngine->GetWorldDeltaSeconds());
-}
-void AGameMode::Render()
-{
+	//SDL_Log("DeltaSeconds : %f\n", GEngine->GetWorldDeltaSeconds());
 }

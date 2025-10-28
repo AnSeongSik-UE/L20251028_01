@@ -12,5 +12,8 @@ public:
 	virtual ~AMonster();
 
 	virtual void Tick() override;
+
+	float ExecuteTime = 0.5f;
+	float TotalTime = 0.f;
 };
 
