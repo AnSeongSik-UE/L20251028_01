@@ -33,21 +33,13 @@ public:
 		Location.Y = Value.Y;
 	}
 
-
-	//virtual void SimulatePhysics();
-	bool CheckCollision(const AActor* Other);
-
 	virtual void ActorBeginOverlap();
 	virtual void Hit();
 
 	void AddComponent(UComponent* InComponent);
 
-protected:
-	FVector2D Location;
-
 	std::vector<class UComponent*> Components;
 
-public:
-	bool bIsCollision = false;
-	bool bIsOverlap = true;
+protected:
+	FVector2D Location;
 };

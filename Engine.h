@@ -63,8 +63,8 @@ public:
 protected:
 	static FEngine* Instance;
 
-	class UTimer* Timer = nullptr;
 	class UInput* InputDevice = nullptr;
+	class UTimer* Timer = nullptr;
 };
 
 //extern FEngine* GEngine;

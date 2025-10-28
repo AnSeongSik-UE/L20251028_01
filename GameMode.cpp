@@ -3,8 +3,6 @@
 
 AGameMode::AGameMode()
 {
-	bIsCollision = false;
-	bIsOverlap = false;
 }
 AGameMode::~AGameMode()
 {

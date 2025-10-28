@@ -1,11 +1,11 @@
 #pragma once
 #include "SceneComponent.h"
 #include "SDL3/SDL.h"
-class UPaperFlipComponent : public USceneComponent
+class UPaperFlipBookComponent : public USceneComponent
 {
 public:
-	UPaperFlipComponent();
-	virtual ~UPaperFlipComponent();
+	UPaperFlipBookComponent();
+	virtual ~UPaperFlipBookComponent();
 
 	virtual void Tick() override;
 
@@ -26,9 +26,9 @@ public:
 
 protected:
 	char Shape;
-	int ZOrder;
-
+	
 public:
 	SDL_Color Color = { 255, 255, 255, 255 };
+	int ZOrder;
 };
 

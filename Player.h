@@ -3,6 +3,8 @@
 #include "Actor.h"
 #include "Engine.h"
 
+class UCollisionComponent;
+
 class APlayer : public AActor
 {
 public:
@@ -27,4 +29,6 @@ public:
 
 	}
 	//
+
+	UCollisionComponent* Collision;
 };

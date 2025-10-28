@@ -5,6 +5,8 @@
 #include "Engine.h"
 #include "Actor.h"
 
+class UCollisionComponent;
+
 class AMonster : public AActor
 {
 public:
@@ -15,5 +17,7 @@ public:
 
 	float ExecuteTime = 0.5f;
 	float TotalTime = 0.f;
+
+	UCollisionComponent* Collision;
 };
 

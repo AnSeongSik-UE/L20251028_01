@@ -161,7 +161,7 @@ void FEngine::Tick()
 {
 	GetWorld()->Tick();
 }
-void FEngine::Render()
+inline void FEngine::Render()
 {
 	SDL_SetRenderDrawColor(MyRenderer, 255, 255, 255, 0);
 	SDL_RenderClear(MyRenderer);
@@ -170,7 +170,6 @@ void FEngine::Render()
 
 	SDL_RenderPresent(MyRenderer);
 }
-
 double FEngine::GetWorldDeltaSeconds() const
 {
 	return Timer->DeltaSeconds;
