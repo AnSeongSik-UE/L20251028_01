@@ -1,25 +1,11 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <conio.h>
-#include <algorithm>
-
-#include <SDL3/SDL.h>
+#include "SDL3/SDL.h"
 
 #pragma comment(lib, "SDL3")
 
-#include "World.h"
-#include "Wall.h"
-#include "Floor.h"
-#include "Player.h"
-#include "Monster.h"
-#include "Goal.h"
-#include "Actor.h"
-#include "GameMode.h"
-
 class UWorld;
+class UTimer;
 
 class FEngine
 {
@@ -66,12 +52,16 @@ public:
 		return Instance;
 	}
 
+	double GetWorldDeltaSeconds() const;
+
 	SDL_Window* MyWindow;
 	SDL_Renderer* MyRenderer;
 	SDL_Event MyEvent;
 
 protected:
 	static FEngine* Instance;
+
+	class UTimer* Timer = nullptr;
 };
 
 //extern FEngine* GEngine;

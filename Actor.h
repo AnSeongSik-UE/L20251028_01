@@ -4,6 +4,7 @@
 #include <Windows.h>
 
 #include "Vector.h"
+#include "Engine.h"
 
 class AActor
 {
@@ -59,4 +60,6 @@ protected:
 public:
 	bool bIsCollision = false;
 	bool bIsOverlap = true;
+
+	SDL_Color Color = { 255, 255, 255, 255 };
 };

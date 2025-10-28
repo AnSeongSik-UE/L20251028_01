@@ -1,5 +1,6 @@
 #include "GameMode.h"
 
+
 AGameMode::AGameMode()
 {
 	bIsCollision = false;
@@ -31,7 +32,7 @@ void AGameMode::Tick()
 			if (Player->GetActorLocation() == Actor->GetActorLocation())
 			{
 				//Game Over
-				exit(-1);
+				//exit(-1);
 				break;
 			}
 		}
@@ -44,11 +45,12 @@ void AGameMode::Tick()
 			if (Player->GetActorLocation() == Actor->GetActorLocation())
 			{
 				//Complete
-				exit(-1);
+				//exit(-1);
 				break;
 			}
 		}
 	}
+	SDL_Log("DeltaSeconds : %f\n", GEngine->GetWorldDeltaSeconds());
 }
 void AGameMode::Render()
 {

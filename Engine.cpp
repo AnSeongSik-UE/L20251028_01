@@ -1,16 +1,38 @@
 #include "Engine.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <conio.h>
+#include <algorithm>
 
+#include "World.h"
+#include "Wall.h"
+#include "Floor.h"
+#include "Player.h"
+#include "Monster.h"
+#include "Goal.h"
+#include "GameMode.h"
+#include "Timer.h"
 //FEngine* GEngine = nullptr;
 
 FEngine* FEngine::Instance = nullptr;
 
-FEngine::FEngine() : World(nullptr)
+FEngine::FEngine() : World(nullptr), MyEvent(SDL_Event())
 {
-
+	MyWindow = nullptr;
+	MyRenderer = nullptr;
+	Timer = new UTimer();
 }
 FEngine::~FEngine()
 {
-
+	if (World)
+	{
+		delete World;
+	}
+	if (Timer)
+	{
+		delete Timer;
+	}
 }
 
 void FEngine::Init()
@@ -96,6 +118,8 @@ void FEngine::Run()
 {
 	while (bIsRunning)
 	{
+		Timer->Tick();
+
 		SDL_PollEvent(&MyEvent);
 		//Input();
 		Tick();
@@ -123,6 +147,15 @@ void FEngine::Tick()
 }
 void FEngine::Render()
 {
-	//system("cls");
+	SDL_SetRenderDrawColor(MyRenderer, 255, 255, 255, 0);
+	SDL_RenderClear(MyRenderer);
+
 	GetWorld()->Render();
+
+	SDL_RenderPresent(MyRenderer);
+}
+
+double FEngine::GetWorldDeltaSeconds() const
+{
+	return Timer->DeltaSeconds;
 }

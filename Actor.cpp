@@ -18,6 +18,20 @@ void AActor::Render()
 
 	SetConsoleCursorPosition((HANDLE)GetStdHandle(STD_OUTPUT_HANDLE), Position);
 	std::cout << Shape;
+
+
+	SDL_SetRenderDrawColor(GEngine->MyRenderer, Color.r, Color.g, Color.b, Color.a);
+	float SizeX = 30.0f;
+	float SizeY = 30.0f;
+	SDL_FRect DrawRect =
+	{
+		Location.X * SizeX,
+		Location.Y * SizeY,
+		SizeX,
+		SizeY
+	};
+	SDL_RenderFillRect(GEngine->MyRenderer, &DrawRect);
+	//SDL_RenderDrawPoint(GEngine->MyRenderer, (float)Location.X, (float)Location.Y);
 }
 bool AActor::CheckCollision(const AActor* OtherActor)
 {

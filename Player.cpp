@@ -1,11 +1,15 @@
 #include <iostream>
+#include <vector>
+
 #include "Player.h"
+#include "World.h"
 
 APlayer::APlayer()
 {
 	ZOrder = 1003;
 	bIsCollision = true;
 	bIsOverlap = true;
+	Color = { 255,0,0,0 };
 }
 APlayer::~APlayer()
 {

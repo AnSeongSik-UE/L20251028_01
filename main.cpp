@@ -1,6 +1,5 @@
-#include <SDL3/SDL_main.h>
-
 #include "Engine.h"
+#include "SDL3/SDL_main.h"
 
 //C++ console entry -> iOS, Window, Linux
 //int main(int argc, char* argv[])
