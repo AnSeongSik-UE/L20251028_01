@@ -15,6 +15,15 @@ FEngine::~FEngine()
 
 void FEngine::Init()
 {
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+
+	MyWindow = SDL_CreateWindow("Engine", 800, 600, SDL_WINDOW_OPENGL);
+	MyRenderer = SDL_CreateRenderer(MyWindow, nullptr);
+
+	OpenLevel();
+}
+void FEngine::OpenLevel()
+{
 	srand((unsigned int)time(nullptr));
 	World = new UWorld;
 
@@ -87,18 +96,26 @@ void FEngine::Run()
 {
 	while (bIsRunning)
 	{
-		Input();
+		SDL_PollEvent(&MyEvent);
+		//Input();
 		Tick();
 		Render();
 	}
 }
 void FEngine::Term()
 {
+	SDL_DestroyRenderer(MyRenderer);
 
+	SDL_DestroyWindow(MyWindow);
+
+	SDL_Quit();
 }
 void FEngine::Input()
 {
-	KeyCode = _getch();
+	if (_kbhit())
+	{
+		KeyCode = _getch();
+	}
 }
 void FEngine::Tick()
 {
