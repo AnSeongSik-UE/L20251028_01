@@ -12,16 +12,14 @@ AFloor::AFloor()
 
 	UPaperFlipBookComponent* Paper = new UPaperFlipBookComponent();
 	Paper->SetShape(' ');
-	Paper->SetOwner(this);
 	Paper->ZOrder = 0;
 	Paper->Color = SDL_Color{ 0, 0, 0, 0 };
-	AddComponent(Paper);
+	SetupAttachment(Paper);
 
 	UCollisionComponent* Collision = new UCollisionComponent();
-	Collision->SetOwner(this);
 	Collision->bIsCollision = false;
 	Collision->bIsOverlap = false;
-	AddComponent(Collision);
+	SetupAttachment(Collision);
 }
 AFloor::~AFloor()
 {

@@ -16,16 +16,14 @@ APlayer::APlayer()
 
 	UPaperFlipBookComponent* Paper = new UPaperFlipBookComponent();
 	Paper->SetShape('P');
-	Paper->SetOwner(this);
 	Paper->ZOrder = 1003;
 	Paper->Color = SDL_Color{ 255, 0, 0, 255 };
-	AddComponent(Paper);
+	SetupAttachment(Paper);
 
 	Collision = new UCollisionComponent();
-	Collision->SetOwner(this);
 	Collision->bIsCollision = true;
 	Collision->bIsOverlap = true;
-	AddComponent(Collision);
+	SetupAttachment(Collision);
 }
 APlayer::~APlayer()
 {
@@ -66,17 +64,11 @@ void APlayer::Tick()
 
 	for (auto OtherActor : AllActors)
 	{
-		for (auto OtherComponent : OtherActor->Components)
+		UCollisionComponent* OtherCollision = OtherActor->GetComponent<UCollisionComponent>();
+		if (Collision->CheckCollision(OtherCollision))
 		{
-			UCollisionComponent* OtherCollision = dynamic_cast<UCollisionComponent*>(OtherComponent);
-			if (OtherCollision)
-			{
-				if (Collision->CheckCollision(OtherCollision))
-				{
-					bFlag = true;
-					break;
-				}
-			}
+			bFlag = true;
+			break;
 		}
 	}
 

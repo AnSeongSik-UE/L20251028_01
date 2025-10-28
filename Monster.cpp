@@ -13,16 +13,14 @@ AMonster::AMonster()
 
 	UPaperFlipBookComponent* Paper = new UPaperFlipBookComponent();
 	Paper->SetShape('M');
-	Paper->SetOwner(this);
 	Paper->ZOrder = 1001;
 	Paper->Color = SDL_Color{ 0, 0, 255, 0 };
-	AddComponent(Paper);
+	SetupAttachment(Paper);
 
 	Collision = new UCollisionComponent();
-	Collision->SetOwner(this);
 	Collision->bIsCollision = true;
 	Collision->bIsOverlap = true;
-	AddComponent(Collision);
+	SetupAttachment(Collision);
 }
 AMonster::~AMonster()
 {
@@ -65,16 +63,13 @@ void AMonster::Tick()
 
 	for (auto OtherActor : AllActors)
 	{
-		for (auto OtherComponent : OtherActor->Components)
+		UCollisionComponent* OtherCollision = OtherActor->GetComponent<UCollisionComponent>();
+		if (OtherCollision)
 		{
-			UCollisionComponent* OtherCollision = dynamic_cast<UCollisionComponent*>(OtherComponent);
-			if (OtherCollision)
+			if (Collision->CheckCollision(OtherCollision))
 			{
-				if (Collision->CheckCollision(OtherCollision))
-				{
-					bFlag = true;
-					break;
-				}
+				bFlag = true;
+				break;
 			}
 		}
 	}

@@ -26,6 +26,19 @@ public:
 		return Location;
 	}
 
+	template<typename T>
+	T* GetComponent()
+	{
+		for (auto Component : Components)
+		{
+			if (dynamic_cast<T*>(Component))
+			{
+				return dynamic_cast<T*>(Component);
+			}
+		}
+		return nullptr;
+	}
+
 	void SetActorLocation(FVector2D Value)
 	{
 		//Location = Value; //복사생성자 동작할수도 안할수도 있음
@@ -36,7 +49,7 @@ public:
 	virtual void ActorBeginOverlap();
 	virtual void Hit();
 
-	void AddComponent(UComponent* InComponent);
+	void SetupAttachment(UComponent* InComponent);
 
 	std::vector<class UComponent*> Components;
 

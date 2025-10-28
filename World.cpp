@@ -34,7 +34,6 @@ void UWorld::SortActor()
 				break;
 			}
 		}
-
 		UPaperFlipBookComponent* Scene2 = nullptr;
 		for (auto Component : B->Components)
 		{
@@ -44,12 +43,10 @@ void UWorld::SortActor()
 				break;
 			}
 		}
-
 		if (!Scene1 || !Scene2)
 		{
 			return false;
 		}
-
 		return (Scene1->GetZOrder() < Scene2->GetZOrder());
 		});
 
